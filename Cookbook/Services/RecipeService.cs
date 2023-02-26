@@ -18,9 +18,17 @@ namespace Cookbook.Services
 
         public async Task<IList<RecipeEntity>> GetAllRecipesAsync()
         {
-            var response = await _recipeRepository.GetAllAsync();
-            //var test = await _recipeRepository.GetAllAsync(x => x.DateCreated > DateTime.Now.AddMonths(-2)); //using a predicate/where clause
-            return response.ToList();
+            try
+            {
+                var response = await _recipeRepository.GetAllAsync();
+                //var test = await _recipeRepository.GetAllAsync(x => x.DateCreated > DateTime.Now.AddMonths(-2)); //using a predicate/where clause
+                return response.ToList();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
     }
 }

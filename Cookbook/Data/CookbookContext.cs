@@ -28,7 +28,7 @@ namespace Cookbook.Data
 
             modelBuilder.Entity<RecipeEntity>(entity =>
             {
-                entity.ToTable("Recipe");
+                entity.ToTable("Recipes");
                 entity.HasKey(e => e.RecipeID);
 
                 entity.Property(e => e.RecipeName)
