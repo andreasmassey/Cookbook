@@ -31,15 +31,26 @@ namespace Cookbook.Data
                 entity.ToTable("Recipe");
                 entity.HasKey(e => e.RecipeID);
 
-                entity.Property(e => e.Title)
+                entity.Property(e => e.RecipeName)
                     .HasColumnType("nvarchar(256)");
 
-                entity.Property(e => e.CreatedDate)
+                entity.Property(e => e.DateCreated)
                     .HasColumnType("datetime");
 
-                entity.Property(e => e.CreatedBy)
-                    .HasColumnType("nvarchar(50)");
+                entity.Property(e => e.RecipeDescription)
+                    .HasColumnType("nvarchar(MAX)");
+
+                entity.Property(e => e.FamilyID)
+                    .HasColumnType("bigint");
+
+                entity.Property(e => e.RecipeInstructions)
+                    .HasColumnType("nvarchar(MAX)");
+
+                entity.Property(e => e.CategoryID)
+                    .HasColumnType("bigint");
             });
+
+
         }
     }
 }

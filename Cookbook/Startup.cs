@@ -10,6 +10,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Cookbook.Data;
+using Cookbook.Services;
+using Cookbook.Data.Repository;
 
 namespace Cookbook
 {
@@ -26,6 +29,10 @@ namespace Cookbook
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddDbContext<CookbookContext>(ServiceLifetime.Scoped);
+            services.AddScoped<IRecipeService, RecipeService>();
+            services.AddScoped<IRecipeRepository, RecipeRepository>();
+            services.AddTransient(typeof(IEntityBaseRepository<>), typeof(EntityBaseRepository<>));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

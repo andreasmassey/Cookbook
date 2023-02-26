@@ -8,8 +8,12 @@ namespace Cookbook.Models.Entities
     public class RecipeEntity
     {
         public long RecipeID { get; set; }
-        public string Title { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public string CreatedBy { get; set; }
+        public string RecipeName { get; set; }
+        public DateTime DateCreated { get; set; }
+        public string RecipeDescription { get; set; }
+        public long FamilyID { get; set; }
+        public string RecipeInstructions { get; set; }
+        public long CategoryID { get; set; }
+
     }
 }
