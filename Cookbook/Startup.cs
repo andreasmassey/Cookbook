@@ -32,7 +32,9 @@ namespace Cookbook
             services.AddDbContext<CookbookContext>(ServiceLifetime.Scoped);
             services.AddScoped<IRecipeService, RecipeService>();
             services.AddScoped<IRecipeRepository, RecipeRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
             services.AddTransient(typeof(IEntityBaseRepository<>), typeof(EntityBaseRepository<>));
+            services.AddSwaggerGen();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,6 +55,10 @@ namespace Cookbook
             {
                 endpoints.MapControllers();
             });
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI();
         }
     }
 }

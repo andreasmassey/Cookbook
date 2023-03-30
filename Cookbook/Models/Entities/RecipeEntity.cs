@@ -9,11 +9,10 @@ namespace Cookbook.Models.Entities
     {
         public long RecipeID { get; set; }
         public string RecipeName { get; set; }
+        public long UserID { get; set; }
+        public string Servings { get; set; }
+        public string PrepTime { get; set; }
+        public string CookTime { get; set; }
         public DateTime DateCreated { get; set; }
-        public string RecipeDescription { get; set; }
-        public long FamilyID { get; set; }
-        public string RecipeInstructions { get; set; }
-        public long CategoryID { get; set; }
-
     }
 }

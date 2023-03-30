@@ -11,7 +11,7 @@
     "Cookbook": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "api/recipe/v1/recipes",
+      "launchUrl": "swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },

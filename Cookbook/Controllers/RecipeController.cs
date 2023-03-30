@@ -1,11 +1,11 @@
-﻿using Cookbook.Services;
+﻿using Cookbook.Models.Contracts;
+using Cookbook.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
 namespace Cookbook.Controllers
 {
     [Route("api/recipe")]
-
     public class RecipeController : Controller
     {
         private readonly IRecipeService _recipeService;
@@ -16,7 +16,7 @@ namespace Cookbook.Controllers
         }
 
         [HttpGet("v1/recipes")]
-
+        //[ProducesResponseType(typeof(GetRecipesContract.Response),200)]
         public async Task<IActionResult> Recipes()
         {
             try
@@ -28,7 +28,6 @@ namespace Cookbook.Controllers
             catch (System.Exception e)
             {
                 return BadRequest(e);
-                throw;
             }
         }
     }
