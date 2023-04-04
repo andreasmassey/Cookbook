@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using Cookbook.Data;
 using Cookbook.Services;
 using Cookbook.Data.Repository;
+using Microsoft.AspNetCore.Mvc.Cors;
 
 namespace Cookbook
 {
@@ -28,6 +29,9 @@ namespace Cookbook
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // this defines a CORS policy called "default"
+            services.AddCors(options => {options.AddPolicy("default", policy => { policy.WithOrigins().AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader(); }); });
+            services.AddCors();
             services.AddControllers();
             services.AddDbContext<CookbookContext>(ServiceLifetime.Scoped);
             services.AddScoped<IRecipeService, RecipeService>();
@@ -44,6 +48,9 @@ namespace Cookbook
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors(options => options.WithOrigins().AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            app.UseCors("default");
 
             app.UseHttpsRedirection();
 

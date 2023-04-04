@@ -62,7 +62,7 @@ namespace Cookbook.Data
                 entity.HasKey(e => e.GroupID);
 
                 entity.Property(e => e.GroupName)
-                    .HasColumnType("nvarchar(M50)");
+                    .HasColumnType("nvarchar(50)");
 
                 entity.Property(e => e.OwnerID)
                     .HasColumnType("bigint");
