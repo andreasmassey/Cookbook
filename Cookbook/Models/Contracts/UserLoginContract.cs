@@ -1,16 +1,17 @@
 ﻿namespace Cookbook.Models.Contracts
 {
-    public class SaveUserContract
+    public class UserLoginContract
     {
-        public class Request {
+        public class UserLoginRequest{
             public string Email { get; set; }
             public string Password { get; set; }
-            public string FirstName { get; set; }
-            public string LastName { get; set; }
         }
 
-        public class Response {
+        public class UserLoginResponse
+        {
             public long UserID { get; set; }
+            public ErrorResponse Error { get; set; }
         }
+
     }
 }

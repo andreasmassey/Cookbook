@@ -13,5 +13,7 @@ namespace Cookbook.Models.Entities
         public string UserFirstName { get; set; }
         public string UserLastName { get; set; }
         public DateTime DateCreated { get; set; }
+
+        public string UserPasswordHash { get; set; }
     }
 }
