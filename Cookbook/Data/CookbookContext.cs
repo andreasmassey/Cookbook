@@ -132,10 +132,10 @@ namespace Cookbook.Data
                     .HasColumnType("nvarchar(50)");
 
                 entity.Property(e => e.PrepTime)
-                    .HasColumnType("nvarchar(50)");
+                    .HasColumnType("int");
 
                 entity.Property(e => e.CookTime)
-                    .HasColumnType("nvarchar(50)");
+                    .HasColumnType("int");
 
                 entity.Property(e => e.DateCreated)
                     .HasColumnType("datetime");
@@ -177,6 +177,9 @@ namespace Cookbook.Data
 
                 entity.Property(e => e.DateCreated)
                     .HasColumnType("datetime");
+
+                entity.Property(e => e.UserPasswordHash)
+                    .HasColumnType("nvarchar(50)");
             });
         }
     }

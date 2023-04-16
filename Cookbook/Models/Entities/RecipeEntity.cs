@@ -11,8 +11,8 @@ namespace Cookbook.Models.Entities
         public string RecipeName { get; set; }
         public long UserID { get; set; }
         public string Servings { get; set; }
-        public string PrepTime { get; set; }
-        public string CookTime { get; set; }
+        public int PrepTime { get; set; }
+        public int CookTime { get; set; }
         public DateTime DateCreated { get; set; }
     }
 }

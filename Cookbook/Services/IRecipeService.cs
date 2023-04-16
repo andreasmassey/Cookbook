@@ -8,8 +8,10 @@ namespace Cookbook.Services
 {
     public interface IRecipeService
     {
-        Task<GetRecipesContract.Response> GetAllRecipesAsync();
+        Task<GetRecipesContract.GetRecipesResponse> GetAllRecipesAsync();
 
-        Task<SaveUserContract.Response> SaveUserAsync(SaveUserContract.Request request);
+        Task<CreateUserContract.CreateUserResponse> SaveUserAsync(CreateUserContract.CreateUserRequest request);
+
+        Task<UserLoginContract.UserLoginResponse> UserLoginAsync(UserLoginContract.UserLoginRequest request);
     }
 }
