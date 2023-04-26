@@ -1,5 +1,6 @@
 ﻿using Cookbook.Data.Repository;
 using Cookbook.Helpers;
+using Cookbook.Models;
 using Cookbook.Models.Contracts;
 using Cookbook.Models.Entities;
 using System;
@@ -13,28 +14,36 @@ namespace Cookbook.Services
     {
         private readonly IRecipeRepository _recipeRepository;
         private readonly IUserRepository _userRepository;
+        private readonly IDirectionsRepository _directionsRepository;
 
-        public RecipeService(IRecipeRepository recipeRepository, IUserRepository userRepository)
+        public RecipeService(IRecipeRepository recipeRepository, IUserRepository userRepository, IDirectionsRepository directionsRepository)
         {
             _recipeRepository = recipeRepository;
             _userRepository = userRepository;
+            _directionsRepository = directionsRepository;
         }
 
-        public async Task<GetRecipesContract.GetRecipesResponse> GetAllRecipesAsync()
+        public async Task<GetSpecificRecipeContract.GetSpecificRecipeResponse> GetSpecificRecipeAsync(GetSpecificRecipeContract.GetSpecificRecipeRequest request)
         {
             try
             {
-                var response = await _recipeRepository.GetAllAsync();
+                var recipe = await _recipeRepository.GetFirstOrDefaultAsync(x => x.Recipe_ID == request.RecipeID);
 
-                //var test = await _recipeRepository.GetAllAsync(x => x.DateCreated > DateTime.Now.AddMonths(-2)); //using a predicate/where clause
-                return new GetRecipesContract.GetRecipesResponse {
-                    Recipes = response.ToList()
+                var directions = await _recipeRepository.GetDirectionsAsync(recipe.Recipe_ID);
+                var ingredients = await _recipeRepository.GetIngredientsAsync(recipe.Recipe_ID);
+
+                return new GetSpecificRecipeContract.GetSpecificRecipeResponse {
+                    Directions = directions,
+                    Ingredients = ingredients
                 };
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                throw;
+                return new GetSpecificRecipeContract.GetSpecificRecipeResponse
+                {
+                    Error = new Models.ErrorResponse { ErrorMessage = e.Message }
+                };
             }
         }
 
@@ -42,7 +51,7 @@ namespace Cookbook.Services
         {
             try
             {
-                var user = await _userRepository.GetFirstOrDefaultAsync(x => x.UserEmail == request.Email);
+                var user = await _userRepository.GetFirstOrDefaultAsync(x => x.Email == request.Email);
 
                 if (user != null)
                 {
@@ -55,16 +64,16 @@ namespace Cookbook.Services
 
                 var userEntity = new UserEntity
                 {
-                    UserEmail = request.Email,
-                    UserPassword = password,
-                    UserFirstName = request.FirstName,
-                    UserLastName = request.LastName,
+                    Email = request.Email,
+                    Password = password,
+                    FirstName = request.FirstName,
+                    LastName = request.LastName,
                     DateCreated = DateTime.UtcNow,
-                    UserPasswordHash = passwordHash
+                    PasswordHash = passwordHash
                 };
                 await _userRepository.AddAndSaveAsync(userEntity);
-                user = await _userRepository.GetFirstOrDefaultAsync(x => x.UserEmail == request.Email);
-                return await Task.FromResult(new CreateUserContract.CreateUserResponse { UserID = user.UserID });
+                user = await _userRepository.GetFirstOrDefaultAsync(x => x.Email == request.Email);
+                return await Task.FromResult(new CreateUserContract.CreateUserResponse { UserID = user.User_ID });
             }
             catch (Exception e)
             {
@@ -80,23 +89,26 @@ namespace Cookbook.Services
         {
             try
             {
-                var user = await _userRepository.GetFirstOrDefaultAsync(x => x.UserEmail == request.Email);
+                var user = await _userRepository.GetFirstOrDefaultAsync(x => x.Email == request.Email);
 
                 if(user == null)
                 {
                     throw new Exception("Username or Password is incorrect.");
                 }
 
-                var saltByte = Convert.FromBase64String(user.UserPasswordHash);
+                var saltByte = Convert.FromBase64String(user.PasswordHash);
                 var password = EncryptPassword.HashPassword(request.Password, saltByte);
 
-                var isValid = password == user.UserPassword;
+                var isValid = password == user.Password;
 
                 if (isValid)
-                {
+                {                    
+                    var recipes = await _recipeRepository.GetRecipesAsync(user.User_ID);
+
                     return new UserLoginContract.UserLoginResponse
                     {
-                        UserID = user.UserID
+                        UserID = user.User_ID,
+                        Recipes = recipes
                     };
                 }
 

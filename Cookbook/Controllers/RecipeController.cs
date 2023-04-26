@@ -15,14 +15,17 @@ namespace Cookbook.Controllers
             _recipeService = recipeService;
         }
 
-        [HttpGet("v1/recipes")]
-        //[ProducesResponseType(typeof(GetRecipesContract.Response),200)]
-        public async Task<IActionResult> Recipes()
+        [HttpPost("v1/recipe")]
+        [ProducesResponseType(typeof(GetSpecificRecipeContract.GetSpecificRecipeResponse),200)]
+        public async Task<IActionResult> GetSpecificRecipe([FromBody] GetSpecificRecipeContract.GetSpecificRecipeRequest request)
         {
             try
             {
-                var response = await _recipeService.GetAllRecipesAsync();
-
+                var response = await _recipeService.GetSpecificRecipeAsync(request);
+                if (!string.IsNullOrEmpty(response?.Error?.ErrorMessage))
+                {
+                    return BadRequest(response);
+                }
                 return Ok(response);
             }
             catch (System.Exception e)

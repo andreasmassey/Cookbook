@@ -1,4 +1,8 @@
-﻿namespace Cookbook.Models.Contracts
+﻿using Cookbook.Models.Entities;
+using System.Collections;
+using System.Collections.Generic;
+
+namespace Cookbook.Models.Contracts
 {
     public class UserLoginContract
     {
@@ -10,6 +14,7 @@
         public class UserLoginResponse
         {
             public long UserID { get; set; }
+            public Recipes Recipes { get; set; }
             public ErrorResponse Error { get; set; }
         }
 

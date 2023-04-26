@@ -7,13 +7,12 @@ namespace Cookbook.Models.Entities
 {
     public class UserEntity
     {
-        public long UserID { get; set; }
-        public string UserEmail { get; set; }
-        public string UserPassword { get; set; }
-        public string UserFirstName { get; set; }
-        public string UserLastName { get; set; }
+        public long User_ID { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
+        public string PasswordHash { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         public DateTime DateCreated { get; set; }
-
-        public string UserPasswordHash { get; set; }
     }
 }

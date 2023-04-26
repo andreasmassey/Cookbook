@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Cookbook.Models;
 using Cookbook.Models.Entities;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace Cookbook.Data.Repository
 {
@@ -11,6 +14,59 @@ namespace Cookbook.Data.Repository
         public RecipeRepository(CookbookContext context) : base(context)
         {
             _context = context;
+        }
+
+        public async Task<Recipes> GetRecipesAsync(long userId)
+        {
+            var recipes = from r in _context.Recipes
+                          join rc in _context.Categories on r.CategoryID equals rc.Category_ID
+                          where r.UserID == userId
+                          select new RecipeModel
+                          {
+                              Recipe_ID = r.Recipe_ID,
+                              RecipeName = r.RecipeName,
+                              Servings = r.Servings,
+                              PrepTime = r.PrepTime,
+                              CookTime = r.CookTime,
+                              DateCreated = r.DateCreated,
+                              CategoryID = r.CategoryID,
+                              UserID = userId,
+                              CategoryName = rc.CategoryName
+
+                          };
+            var recipeModels = await recipes.ToListAsync();
+            return new Recipes
+            {
+                RecipeModels = recipeModels
+            };
+        }
+
+        public async Task<DirectionModel> GetDirectionsAsync(long recipeId)
+        {
+            var directions = from d in _context.Directions
+                             where d.RecipeID == recipeId
+                             select d;
+
+            var directionsList = await directions.ToListAsync();
+
+            return new DirectionModel
+            {
+                Directions = directionsList
+            };
+        }
+
+        public async Task<IngredientModel> GetIngredientsAsync(long recipeId)
+        {
+            var ingredients = from i in _context.Ingredients
+                              where i.RecipeID == recipeId
+                              select i;
+
+            var ingredientsList = await ingredients.ToListAsync();
+
+            return new IngredientModel
+            {
+                Ingredients = ingredientsList
+            };
         }
     }
 }

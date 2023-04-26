@@ -15,6 +15,10 @@ namespace Cookbook.Data
         }
 
         public DbSet<RecipeEntity> Recipes { get; set; }
+        public DbSet<DirectionEntity> Directions { get; set; }
+        public DbSet<CategoryEntity> Categories { get; set; }
+        public DbSet<ImageEntity> Images { get; set; }
+        public DbSet<IngredientEntity> Ingredients { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -30,9 +34,10 @@ namespace Cookbook.Data
             modelBuilder.Entity<CategoryEntity>(entity =>
             {
                 entity.ToTable("Categories");
-                entity.HasKey(e => e.CategoryID);
+                entity.HasKey(e => e.Category_ID);
 
                 entity.Property(e => e.CategoryName)
+                    .HasColumnName("category_name")
                     .HasColumnType("nvarchar(256)");
             });
 
@@ -40,18 +45,22 @@ namespace Cookbook.Data
             modelBuilder.Entity<DirectionEntity>(entity =>
             {
                 entity.ToTable("Directions");
-                entity.HasKey(e => e.DirectionID);
+                entity.HasKey(e => e.Direction_ID);
 
-                entity.Property(e => e.StepNum)
+                entity.Property(e => e.StepNumber)
+                    .HasColumnName("step_number")
                     .HasColumnType("int");
 
-                entity.Property(e => e.DirectionDesc)
+                entity.Property(e => e.DirectionDescription)
+                    .HasColumnName("direction_description")
                     .HasColumnType("nvarchar(MAX)");
 
                 entity.Property(e => e.RecipeID)
+                    .HasColumnName("recipe_id")
                     .HasColumnType("bigint");
 
                 entity.Property(e => e.DateCreated)
+                    .HasColumnName("date_created")
                     .HasColumnType("datetime");
             });
 
@@ -59,47 +68,47 @@ namespace Cookbook.Data
             modelBuilder.Entity<GroupEntity>(entity =>
             {
                 entity.ToTable("Groups");
-                entity.HasKey(e => e.GroupID);
+                entity.HasKey(e => e.Group_ID);
 
                 entity.Property(e => e.GroupName)
+                    .HasColumnName("group_name")
                     .HasColumnType("nvarchar(50)");
 
                 entity.Property(e => e.OwnerID)
+                    .HasColumnName("owner_id")
                     .HasColumnType("bigint");
 
                 entity.Property(e => e.DateCreated)
+                    .HasColumnName("date_created")
                     .HasColumnType("datetime");
             });
 
-            //Ingredients Table
-            modelBuilder.Entity<IngredientEntity>(entity =>
+            //Images Table
+            modelBuilder.Entity<ImageEntity>(entity =>
+            {
+                entity.ToTable("Images");
+                entity.HasKey(e => e.Image_ID);
+
+                entity.Property(e => e.Image)
+                    .HasColumnType("varbinary(max)");
+            });
+
+                //Ingredients Table
+                modelBuilder.Entity<IngredientEntity>(entity =>
             {
                 entity.ToTable("Ingredients");
-                entity.HasKey(e => e.IngredientId);
+                entity.HasKey(e => e.Ingredient_ID);
 
                 entity.Property(e => e.IngredientName)
+                    .HasColumnName("ingredient_name")
                     .HasColumnType("nvarchar(256)");
 
                 entity.Property(e => e.RecipeID)
+                    .HasColumnName("recipe_id")
                     .HasColumnType("bigint");
 
                 entity.Property(e => e.DateCreated)
-                    .HasColumnType("datetime");
-            });
-
-            //RecipeCategories Table
-            modelBuilder.Entity<RecipeCategoryEntity>(entity =>
-            {
-                entity.ToTable("RecipeCategories");
-                entity.HasKey(e => e.RecipeCategoryID);
-
-                entity.Property(e => e.RecipeID)
-                    .HasColumnType("bigint");
-
-                entity.Property(e => e.CategoryID)
-                    .HasColumnType("bigint");
-
-                entity.Property(e => e.DateCreated)
+                    .HasColumnName("date_created")
                     .HasColumnType("datetime");
             });
 
@@ -107,12 +116,14 @@ namespace Cookbook.Data
             modelBuilder.Entity<RecipeGroupEntity>(entity =>
             {
                 entity.ToTable("RecipeGroups");
-                entity.HasKey(e => e.RecipeGroupID);
+                entity.HasKey(e => e.Recipe_Group_ID);
 
                 entity.Property(e => e.RecipeID)
+                    .HasColumnName("recipe_id")
                     .HasColumnType("bigint");
 
                 entity.Property(e => e.GroupID)
+                    .HasColumnName("group_id")
                     .HasColumnType("bigint");
             });
 
@@ -120,40 +131,56 @@ namespace Cookbook.Data
             modelBuilder.Entity<RecipeEntity>(entity =>
             {
                 entity.ToTable("Recipes");
-                entity.HasKey(e => e.RecipeID);
+                entity.HasKey(e => e.Recipe_ID);
 
                 entity.Property(e => e.RecipeName)
+                    .HasColumnName("recipe_name")
                     .HasColumnType("nvarchar(256)");
 
                 entity.Property(e => e.UserID)
+                    .HasColumnName("user_id")
                     .HasColumnType("bigint");
 
                 entity.Property(e => e.Servings)
                     .HasColumnType("nvarchar(50)");
 
                 entity.Property(e => e.PrepTime)
+                    .HasColumnName("prep_time")
                     .HasColumnType("int");
 
                 entity.Property(e => e.CookTime)
+                    .HasColumnName("cook_time")
                     .HasColumnType("int");
 
                 entity.Property(e => e.DateCreated)
+                    .HasColumnName("date_created")
                     .HasColumnType("datetime");
+
+                entity.Property(e => e.CategoryID)
+                    .HasColumnName("category_id")
+                    .HasColumnType("bigint");
+
+                //entity.Property(e => e.ImageID)
+                //    .HasColumnName("image_id")
+                //    .HasColumnType("bigint");
             });
 
             //UserGroups Table
             modelBuilder.Entity<UserGroupEntity>(entity =>
             {
                 entity.ToTable("UserGroups");
-                entity.HasKey(e => e.UserGroupID);
+                entity.HasKey(e => e.User_Group_ID);
 
                 entity.Property(e => e.UserID)
+                    .HasColumnName("user_id")
                     .HasColumnType("bigint");
 
                 entity.Property(e => e.GroupID)
+                    .HasColumnName("group_id")
                     .HasColumnType("bigint");
 
                 entity.Property(e => e.JoinDate)
+                    .HasColumnName("join_date")
                     .HasColumnType("datetime");
             });
 
@@ -161,24 +188,28 @@ namespace Cookbook.Data
             modelBuilder.Entity<UserEntity>(entity => 
             {
                 entity.ToTable("Users");
-                entity.HasKey(e => e.UserID);
+                entity.HasKey(e => e.User_ID);
 
-                entity.Property(e => e.UserEmail)
+                entity.Property(e => e.Email)
                     .HasColumnType("nvarchar(50)");
 
-                entity.Property(e => e.UserPassword)
+                entity.Property(e => e.Password)
                     .HasColumnType("nvarchar(50)");
 
-                entity.Property(e => e.UserFirstName)
+                entity.Property(e => e.FirstName)
+                    .HasColumnName("first_name")
                     .HasColumnType("nvarchar(50)");
 
-                entity.Property(e => e.UserLastName)
+                entity.Property(e => e.LastName)
+                    .HasColumnName("last_name")
                     .HasColumnType("nvarchar(50)");
 
                 entity.Property(e => e.DateCreated)
+                    .HasColumnName("date_created")
                     .HasColumnType("datetime");
 
-                entity.Property(e => e.UserPasswordHash)
+                entity.Property(e => e.PasswordHash)
+                    .HasColumnName("password_hash")
                     .HasColumnType("nvarchar(50)");
             });
         }

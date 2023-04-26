@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Cookbook.Models.Entities;
+using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace Cookbook.Models.Entities
+namespace Cookbook.Models
 {
-    public class RecipeEntity
+    public class RecipeModel
     {
         public long Recipe_ID { get; set; }
         public string RecipeName { get; set; }
@@ -15,6 +15,6 @@ namespace Cookbook.Models.Entities
         public int CookTime { get; set; }
         public DateTime DateCreated { get; set; }
         public long CategoryID { get; set; }
-        //public long ImageID { get; set; }
+        public string CategoryName { get; set; }
     }
 }
