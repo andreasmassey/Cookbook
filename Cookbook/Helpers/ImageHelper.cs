@@ -1,5 +1,5 @@
-﻿using System.IO;
-using System.Drawing;
+﻿using System.Drawing;
+using System.IO;
 
 namespace Cookbook.Helpers
 {
@@ -18,9 +18,9 @@ namespace Cookbook.Helpers
 
         public static Image ByteArrayToImage(byte[] byteArrayIn)
         {
-            using(var ms = new MemoryStream(byteArrayIn))
+            using (var ms = new MemoryStream(byteArrayIn))
             {
-                var returnImage = Image.FromStream(ms); 
+                var returnImage = Image.FromStream(ms);
                 return returnImage;
             }
         }

@@ -2,7 +2,7 @@
 {
     public class CreateUserContract
     {
-        public class CreateUserRequest 
+        public class CreateUserRequest
         {
             public string Email { get; set; }
             public string Password { get; set; }

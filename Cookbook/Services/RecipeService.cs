@@ -1,11 +1,8 @@
 ﻿using Cookbook.Data.Repository;
 using Cookbook.Helpers;
-using Cookbook.Models;
 using Cookbook.Models.Contracts;
 using Cookbook.Models.Entities;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Cookbook.Services
@@ -36,7 +33,8 @@ namespace Cookbook.Services
                 var ingredients = await _recipeRepository.GetIngredientsAsync(recipe.Recipe_ID);
 
 
-                return new GetSpecificRecipeContract.GetSpecificRecipeResponse {
+                return new GetSpecificRecipeContract.GetSpecificRecipeResponse
+                {
                     Directions = directions,
                     Ingredients = ingredients,
                     Recipe = recipe
@@ -84,8 +82,8 @@ namespace Cookbook.Services
                 await _userRepository.AddAndSaveAsync(userEntity);
                 user = await _userRepository.GetFirstOrDefaultAsync(x => x.Email == request.Email);
 
-                return await Task.FromResult(new CreateUserContract.CreateUserResponse 
-                { 
+                return await Task.FromResult(new CreateUserContract.CreateUserResponse
+                {
                     UserID = user.User_ID
                 });
             }
@@ -106,7 +104,7 @@ namespace Cookbook.Services
                 //Check if the email exists, if it does, get the user's information
                 var user = await _userRepository.GetFirstOrDefaultAsync(x => x.Email == request.Email);
 
-                if(user == null)
+                if (user == null)
                 {
                     throw new Exception("Username or Password is incorrect.");
                 }
@@ -138,8 +136,8 @@ namespace Cookbook.Services
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                return new UserLoginContract.UserLoginResponse 
-                { 
+                return new UserLoginContract.UserLoginResponse
+                {
                     Error = new Models.ErrorResponse { ErrorMessage = e.Message }
                 };
             }
@@ -152,7 +150,7 @@ namespace Cookbook.Services
                 //Check if the image is already in the database, if it is, just use existing image
                 var image = await _imageRepository.GetFirstOrDefaultAsync(x => x.Image == request.ImageData);
 
-                if(image != null)
+                if (image == null)
                 {
                     //Add Image to the database
                     var imageEntity = new ImageEntity
@@ -184,7 +182,7 @@ namespace Cookbook.Services
 
                 //Add the directions to the database
                 int stepCounter = 1;
-                foreach(string dir in request.Directions)
+                foreach (string dir in request.Directions)
                 {
                     var directionEntity = new DirectionEntity
                     {

@@ -6,7 +6,8 @@ namespace Cookbook.Data.Repository
     {
         private CookbookContext _context;
 
-        public UserRepository(CookbookContext context) : base(context) { 
+        public UserRepository(CookbookContext context) : base(context)
+        {
             _context = context;
         }
     }

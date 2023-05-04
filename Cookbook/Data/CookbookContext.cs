@@ -93,24 +93,24 @@ namespace Cookbook.Data
                     .HasColumnType("varbinary(max)");
             });
 
-                //Ingredients Table
-                modelBuilder.Entity<IngredientEntity>(entity =>
-            {
-                entity.ToTable("Ingredients");
-                entity.HasKey(e => e.Ingredient_ID);
+            //Ingredients Table
+            modelBuilder.Entity<IngredientEntity>(entity =>
+        {
+            entity.ToTable("Ingredients");
+            entity.HasKey(e => e.Ingredient_ID);
 
-                entity.Property(e => e.IngredientName)
-                    .HasColumnName("ingredient_name")
-                    .HasColumnType("nvarchar(256)");
+            entity.Property(e => e.IngredientName)
+                .HasColumnName("ingredient_name")
+                .HasColumnType("nvarchar(256)");
 
-                entity.Property(e => e.RecipeID)
-                    .HasColumnName("recipe_id")
-                    .HasColumnType("bigint");
+            entity.Property(e => e.RecipeID)
+                .HasColumnName("recipe_id")
+                .HasColumnType("bigint");
 
-                entity.Property(e => e.DateCreated)
-                    .HasColumnName("date_created")
-                    .HasColumnType("datetime");
-            });
+            entity.Property(e => e.DateCreated)
+                .HasColumnName("date_created")
+                .HasColumnType("datetime");
+        });
 
             //RecipeGroups Table
             modelBuilder.Entity<RecipeGroupEntity>(entity =>
@@ -185,7 +185,7 @@ namespace Cookbook.Data
             });
 
             //Users Table
-            modelBuilder.Entity<UserEntity>(entity => 
+            modelBuilder.Entity<UserEntity>(entity =>
             {
                 entity.ToTable("Users");
                 entity.HasKey(e => e.User_ID);

@@ -1,6 +1,6 @@
-﻿using Cookbook.Services;
+﻿using Cookbook.Models.Contracts;
+using Cookbook.Services;
 using Microsoft.AspNetCore.Mvc;
-using Cookbook.Models.Contracts;
 using System.Threading.Tasks;
 
 namespace Cookbook.Controllers
@@ -16,7 +16,7 @@ namespace Cookbook.Controllers
         }
 
         [HttpPost("v1/user")]
-        [ProducesResponseType(typeof(CreateUserContract.CreateUserResponse),200)]
+        [ProducesResponseType(typeof(CreateUserContract.CreateUserResponse), 200)]
         public async Task<IActionResult> SaveUser([FromBody] CreateUserContract.CreateUserRequest request)
         {
             try

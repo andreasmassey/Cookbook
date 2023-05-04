@@ -2,7 +2,7 @@
 
 namespace Cookbook.Data.Repository
 {
-    public interface IImageRepository :IEntityBaseRepository<ImageEntity>
+    public interface IImageRepository : IEntityBaseRepository<ImageEntity>
     {
     }
 }

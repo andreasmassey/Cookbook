@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using System;
-using System.Linq.Expressions;
-using System.Linq;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace Cookbook.Data.Repository
 {
@@ -17,7 +17,7 @@ namespace Cookbook.Data.Repository
             _context = context;
         }
 
-        public virtual async Task<IEnumerable<T>> GetAllAsync() 
+        public virtual async Task<IEnumerable<T>> GetAllAsync()
         {
             try
             {
@@ -27,7 +27,7 @@ namespace Cookbook.Data.Repository
             {
                 Console.WriteLine(e);
                 throw;
-            }      
+            }
         }
 
         public virtual async Task<IEnumerable<T>> GetAllAsync(Expression<Func<T, bool>> predicate)

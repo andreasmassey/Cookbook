@@ -1,8 +1,6 @@
-﻿using Cookbook.Models.Entities;
-using System.Collections;
+﻿using Cookbook.Models;
+using Cookbook.Models.Entities;
 using System.Threading.Tasks;
-using System.Collections.Generic;
-using Cookbook.Models;
 
 namespace Cookbook.Data.Repository
 {

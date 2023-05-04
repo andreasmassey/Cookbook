@@ -1,19 +1,11 @@
+using Cookbook.Data;
+using Cookbook.Data.Repository;
+using Cookbook.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Cookbook.Data;
-using Cookbook.Services;
-using Cookbook.Data.Repository;
-using Microsoft.AspNetCore.Mvc.Cors;
 
 namespace Cookbook
 {
@@ -30,7 +22,7 @@ namespace Cookbook
         public void ConfigureServices(IServiceCollection services)
         {
             // this defines a CORS policy called "default"
-            services.AddCors(options => {options.AddPolicy("default", policy => { policy.WithOrigins().AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader(); }); });
+            services.AddCors(options => { options.AddPolicy("default", policy => { policy.WithOrigins().AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader(); }); });
             services.AddCors();
             services.AddControllers();
             services.AddDbContext<CookbookContext>(ServiceLifetime.Scoped);

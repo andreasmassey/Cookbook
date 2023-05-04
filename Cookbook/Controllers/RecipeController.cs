@@ -1,5 +1,4 @@
-﻿using Azure;
-using Cookbook.Models.Contracts;
+﻿using Cookbook.Models.Contracts;
 using Cookbook.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -17,7 +16,7 @@ namespace Cookbook.Controllers
         }
 
         [HttpPost("v1/recipe")]
-        [ProducesResponseType(typeof(GetSpecificRecipeContract.GetSpecificRecipeResponse),200)]
+        [ProducesResponseType(typeof(GetSpecificRecipeContract.GetSpecificRecipeResponse), 200)]
         public async Task<IActionResult> GetSpecificRecipe([FromBody] GetSpecificRecipeContract.GetSpecificRecipeRequest request)
         {
             try
