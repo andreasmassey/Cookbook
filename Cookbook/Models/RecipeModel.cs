@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 
 namespace Cookbook.Models
 {
@@ -16,5 +17,7 @@ namespace Cookbook.Models
         public DateTime DateCreated { get; set; }
         public long CategoryID { get; set; }
         public string CategoryName { get; set; }
+        public long ImageID { get; set; }
+        public byte[] ImageData { get; set; }
     }
 }

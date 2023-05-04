@@ -15,6 +15,6 @@ namespace Cookbook.Models.Entities
         public int CookTime { get; set; }
         public DateTime DateCreated { get; set; }
         public long CategoryID { get; set; }
-        //public long ImageID { get; set; }
+        public long ImageID { get; set; }
     }
 }

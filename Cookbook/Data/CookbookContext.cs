@@ -160,9 +160,9 @@ namespace Cookbook.Data
                     .HasColumnName("category_id")
                     .HasColumnType("bigint");
 
-                //entity.Property(e => e.ImageID)
-                //    .HasColumnName("image_id")
-                //    .HasColumnType("bigint");
+                entity.Property(e => e.ImageID)
+                    .HasColumnName("image_id")
+                    .HasColumnType("bigint");
             });
 
             //UserGroups Table

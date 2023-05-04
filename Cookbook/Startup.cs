@@ -38,6 +38,8 @@ namespace Cookbook
             services.AddScoped<IRecipeRepository, RecipeRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IDirectionsRepository, DirectionsRepository>();
+            services.AddScoped<IImageRepository, ImageRepository>();
+            services.AddScoped<IIngredientsRepository, IngredientsRepository>();
             services.AddTransient(typeof(IEntityBaseRepository<>), typeof(EntityBaseRepository<>));
             services.AddSwaggerGen();
         }

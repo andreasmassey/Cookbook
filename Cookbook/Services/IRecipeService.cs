@@ -13,5 +13,7 @@ namespace Cookbook.Services
         Task<CreateUserContract.CreateUserResponse> SaveUserAsync(CreateUserContract.CreateUserRequest request);
 
         Task<UserLoginContract.UserLoginResponse> UserLoginAsync(UserLoginContract.UserLoginRequest request);
+
+        Task<CreateRecipeContract.CreateRecipeResponse> CreateRecipeAsync(CreateRecipeContract.CreateRecipeRequest request);
     }
 }

@@ -14,6 +14,9 @@ namespace Cookbook.Models.Contracts
         public class UserLoginResponse
         {
             public long UserID { get; set; }
+            public string Email { get; set; }
+            public string FirstName { get; set; }
+            public string LastName { get; set; }
             public Recipes Recipes { get; set; }
             public ErrorResponse Error { get; set; }
         }

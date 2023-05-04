@@ -4,6 +4,7 @@ using Cookbook.Models;
 using Cookbook.Models.Entities;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using Cookbook.Helpers;
 
 namespace Cookbook.Data.Repository
 {
@@ -16,10 +17,38 @@ namespace Cookbook.Data.Repository
             _context = context;
         }
 
+        public async Task<Recipes> GetOneRecipeAsync(long recipeId)
+        {
+            var recipes = from r in _context.Recipes
+                          join rc in _context.Categories on r.CategoryID equals rc.Category_ID
+                          join i in _context.Images on r.ImageID equals i.Image_ID
+                          where r.Recipe_ID == recipeId
+                          select new RecipeModel
+                          {
+                              Recipe_ID = recipeId,
+                              RecipeName = r.RecipeName,
+                              Servings = r.Servings,
+                              PrepTime = r.PrepTime,
+                              CookTime = r.CookTime,
+                              DateCreated = r.DateCreated,
+                              CategoryID = r.CategoryID,
+                              ImageID = r.ImageID,
+                              UserID = r.UserID,
+                              CategoryName = rc.CategoryName,
+                              ImageData = i.Image
+                          };
+            var recipeModels = await recipes.ToListAsync();
+            return new Recipes
+            {
+                RecipeModels = recipeModels
+            };
+        }
+
         public async Task<Recipes> GetRecipesAsync(long userId)
         {
             var recipes = from r in _context.Recipes
                           join rc in _context.Categories on r.CategoryID equals rc.Category_ID
+                          join i in _context.Images on r.ImageID equals i.Image_ID
                           where r.UserID == userId
                           select new RecipeModel
                           {
@@ -30,9 +59,10 @@ namespace Cookbook.Data.Repository
                               CookTime = r.CookTime,
                               DateCreated = r.DateCreated,
                               CategoryID = r.CategoryID,
+                              ImageID = r.ImageID,
                               UserID = userId,
-                              CategoryName = rc.CategoryName
-
+                              CategoryName = rc.CategoryName,
+                              ImageData = i.Image
                           };
             var recipeModels = await recipes.ToListAsync();
             return new Recipes
