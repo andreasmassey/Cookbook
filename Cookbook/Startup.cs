@@ -63,8 +63,11 @@ namespace Cookbook
 
             app.UseSwagger();
 
-            app.UseSwaggerAuthorization();
-            //app.UseSwaggerDocumentation(Configuration);
+            if (!env.IsDevelopment())
+            {
+                app.UseSwaggerAuthorization();
+            }
+
             app.UseSwaggerUI();
         }
     }

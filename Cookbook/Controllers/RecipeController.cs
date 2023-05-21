@@ -15,13 +15,13 @@ namespace Cookbook.Controllers
             _recipeService = recipeService;
         }
 
-        [HttpGet("v1/recipe/{recipeId}")]
+        [HttpGet("v1/recipe/{id}")]
         [ProducesResponseType(typeof(GetSpecificRecipeContract.GetSpecificRecipeResponse), 200)]
-        public async Task<IActionResult> GetSpecificRecipe(long recipeId)
+        public async Task<IActionResult> GetSpecificRecipe(long id)
         {
             try
             {
-                var response = await _recipeService.GetSpecificRecipeAsync(new GetSpecificRecipeContract.GetSpecificRecipeRequest { RecipeID = recipeId});
+                var response = await _recipeService.GetSpecificRecipeAsync(new GetSpecificRecipeContract.GetSpecificRecipeRequest { RecipeID = id});
                 if (!string.IsNullOrEmpty(response?.Error?.ErrorMessage))
                 {
                     return BadRequest(response);
