@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\marah\\Source\\Repos\\Cookbook\\Cookbook\\Cookbook.csproj": {}
+    "E:\\Development\\CSharp\\Cookbook\\Cookbook\\Cookbook.csproj": {}
   },
   "projects": {
-    "C:\\Users\\marah\\Source\\Repos\\Cookbook\\Cookbook\\Cookbook.csproj": {
+    "E:\\Development\\CSharp\\Cookbook\\Cookbook\\Cookbook.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\marah\\Source\\Repos\\Cookbook\\Cookbook\\Cookbook.csproj",
+        "projectUniqueName": "E:\\Development\\CSharp\\Cookbook\\Cookbook\\Cookbook.csproj",
         "projectName": "Cookbook",
-        "projectPath": "C:\\Users\\marah\\Source\\Repos\\Cookbook\\Cookbook\\Cookbook.csproj",
-        "packagesPath": "C:\\Users\\marah\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\marah\\Source\\Repos\\Cookbook\\Cookbook\\obj\\",
+        "projectPath": "E:\\Development\\CSharp\\Cookbook\\Cookbook\\Cookbook.csproj",
+        "packagesPath": "C:\\Users\\Andy-PC\\.nuget\\packages\\",
+        "outputPath": "E:\\Development\\CSharp\\Cookbook\\Cookbook\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\marah\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\Andy-PC\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -26,7 +22,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -95,7 +90,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.200\\RuntimeIdentifierGraph.json"
         }
       }
     }

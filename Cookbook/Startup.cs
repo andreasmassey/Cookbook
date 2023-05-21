@@ -1,6 +1,7 @@
 using Cookbook.Data;
 using Cookbook.Data.Repository;
 using Cookbook.Services;
+using Gateway.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -33,6 +34,8 @@ namespace Cookbook
             services.AddScoped<IImageRepository, ImageRepository>();
             services.AddScoped<IIngredientsRepository, IngredientsRepository>();
             services.AddTransient(typeof(IEntityBaseRepository<>), typeof(EntityBaseRepository<>));
+
+            //services.AddSwaggerDocumentation(Configuration);
             services.AddSwaggerGen();
         }
 
@@ -60,6 +63,8 @@ namespace Cookbook
 
             app.UseSwagger();
 
+            app.UseSwaggerAuthorization();
+            //app.UseSwaggerDocumentation(Configuration);
             app.UseSwaggerUI();
         }
     }

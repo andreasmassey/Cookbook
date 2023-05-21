@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121.
+-->
+<Project>
+  <PropertyGroup>
+    <_PublishTargetUrl>\\192.168.50.232\Web\CookistrysApi</_PublishTargetUrl>
+    <History>True|2023-05-21T16:15:22.7545901Z;True|2023-05-21T12:11:54.7123516-04:00;True|2023-05-21T12:10:59.8185223-04:00;False|2023-05-21T12:10:51.0501657-04:00;True|2023-05-21T12:06:37.9806669-04:00;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+</Project>
