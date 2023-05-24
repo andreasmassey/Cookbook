@@ -147,6 +147,16 @@ namespace Cookbook.Services
         {
             try
             {
+                //Check if user already has a recipe with this recipe name
+                var recipes = await _recipeRepository.GetAllAsync(x => x.RecipeName == request.RecipeName);
+                foreach (RecipeEntity r in recipes)
+                {
+                    if (r.UserID == request.UserID)
+                    {
+                        throw new Exception("You already have this recipe.");
+                    }
+                }
+
                 //Check if the image is already in the database, if it is, just use existing image
                 var image = await _imageRepository.GetFirstOrDefaultAsync(x => x.Image == request.ImageData);
 
@@ -178,8 +188,16 @@ namespace Cookbook.Services
 
                 //Get the recipe_id
                 await _recipeRepository.AddAndSaveAsync(recipeEntity);
-                var recipe = await _recipeRepository.GetFirstOrDefaultAsync(x => x.RecipeName == request.RecipeName);
-
+                recipes = await _recipeRepository.GetAllAsync(x => x.RecipeName == request.RecipeName);
+                var recipe = new RecipeEntity{ };
+                foreach(RecipeEntity r in recipes)
+                {
+                    if(r.UserID == request.UserID)
+                    {
+                        recipe = r;
+                    }
+                }
+                
                 //Add the directions to the database
                 int stepCounter = 1;
                 foreach (string dir in request.Directions)
@@ -210,12 +228,12 @@ namespace Cookbook.Services
                 }
 
                 //Get the RecipeModel of the recipe just made to add to user's list of recipes
-                var recipes = await _recipeRepository.GetOneRecipeAsync(recipe.Recipe_ID);
+                var recipeModel = await _recipeRepository.GetOneRecipeAsync(recipe.Recipe_ID);
 
                 return new CreateRecipeContract.CreateRecipeResponse
                 {
                     RecipeID = recipe.Recipe_ID,
-                    Recipe = recipes
+                    Recipe = recipeModel
                 };
             }
             catch (Exception e)
