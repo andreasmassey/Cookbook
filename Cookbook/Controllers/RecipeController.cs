@@ -15,13 +15,13 @@ namespace Cookbook.Controllers
             _recipeService = recipeService;
         }
 
-        [HttpPost("v1/recipe")]
+        [HttpGet("v1/recipe/{id}")]
         [ProducesResponseType(typeof(GetSpecificRecipeContract.GetSpecificRecipeResponse), 200)]
-        public async Task<IActionResult> GetSpecificRecipe([FromBody] GetSpecificRecipeContract.GetSpecificRecipeRequest request)
+        public async Task<IActionResult> GetSpecificRecipe(long id)
         {
             try
             {
-                var response = await _recipeService.GetSpecificRecipeAsync(request);
+                var response = await _recipeService.GetSpecificRecipeAsync(new GetSpecificRecipeContract.GetSpecificRecipeRequest { RecipeID = id});
                 if (!string.IsNullOrEmpty(response?.Error?.ErrorMessage))
                 {
                     return BadRequest(response);
@@ -34,7 +34,7 @@ namespace Cookbook.Controllers
             }
         }
 
-        [HttpPost("v1/createrecipe")]
+        [HttpPost("v1/recipe")]
         [ProducesResponseType(typeof(CreateRecipeContract.CreateRecipeResponse), 200)]
         public async Task<IActionResult> CreateRecipe([FromBody] CreateRecipeContract.CreateRecipeRequest request)
         {

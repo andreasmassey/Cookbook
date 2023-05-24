@@ -174,17 +174,7 @@ namespace Cookbook.Services
                 }
 
                 //Add Recipe to the database
-                var recipeEntity = new RecipeEntity
-                {
-                    RecipeName = request.RecipeName,
-                    UserID = request.UserID,
-                    Servings = request.Servings,
-                    PrepTime = request.PrepTime,
-                    CookTime = request.CookTime,
-                    DateCreated = DateTime.UtcNow,
-                    CategoryID = request.CategoryID,
-                    ImageID = image.Image_ID
-                };
+                var recipeEntity = Mappings.Mappings.RecipeEntity(request, image);
 
                 //Get the recipe_id
                 await _recipeRepository.AddAndSaveAsync(recipeEntity);
