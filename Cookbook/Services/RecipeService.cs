@@ -4,6 +4,7 @@ using Cookbook.Models.Contracts;
 using Cookbook.Models.Entities;
 using System;
 using System.Threading.Tasks;
+using Cookbook.Mappings;
 
 namespace Cookbook.Services
 {
@@ -68,15 +69,7 @@ namespace Cookbook.Services
                 var password = EncryptPassword.HashPassword(request.Password, salt);
 
                 //Create the user
-                var userEntity = new UserEntity
-                {
-                    Email = request.Email,
-                    Password = password,
-                    FirstName = request.FirstName,
-                    LastName = request.LastName,
-                    DateCreated = DateTime.UtcNow,
-                    PasswordHash = passwordHash
-                };
+                var userEntity = Mapping.UserEntity(request, password, passwordHash);
 
                 //Save the user to database and get the user's ID to return
                 await _userRepository.AddAndSaveAsync(userEntity);
@@ -120,14 +113,7 @@ namespace Cookbook.Services
                     //Get all the recipes the user has
                     var recipes = await _recipeRepository.GetRecipesAsync(user.User_ID);
 
-                    return new UserLoginContract.UserLoginResponse
-                    {
-                        UserID = user.User_ID,
-                        Email = user.Email,
-                        FirstName = user.FirstName,
-                        LastName = user.LastName,
-                        Recipes = recipes
-                    };
+                    return Mapping.LoginResponse(user, recipes);
                 }
 
                 throw new Exception("Username or Password is incorrect.");
@@ -164,7 +150,7 @@ namespace Cookbook.Services
                 }
 
                 //Add Recipe to the database
-                var recipeEntity = Mappings.Mappings.RecipeEntity(request, image);
+                var recipeEntity = Mapping.RecipeEntity(request, image);
 
                 //Get the recipe_id
                 await _recipeRepository.AddAndSaveAsync(recipeEntity);
