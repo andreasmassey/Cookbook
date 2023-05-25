@@ -1,9 +1,0 @@
-{
-  "runtimeOptions": {
-    "additionalProbingPaths": [
-      "C:\\Users\\Marz\\.dotnet\\store\\|arch|\\|tfm|",
-      "C:\\Users\\Marz\\.nuget\\packages",
-      "E:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-    ]
-  }
-}
